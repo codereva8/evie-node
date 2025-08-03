@@ -82,15 +82,13 @@
 
         /* --------------  HERO -------------- */
         .hero{
-            /* Change: Sets the hero section to a fixed height of 500px as requested */
-            height:500px;
+            /* Updated: Removed fixed height and added min-height for responsive design */
+            min-height:50vh; 
             display:flex;align-items:center;justify-content:center;text-align:center;
             overflow:hidden;position:relative;
-            /* New: Adds rounded corners to the hero section */
             border-radius: 20px;
             margin: 20px 5%;
         }
-        /* Change: Adds a pseudo-element to handle the background image and the hover effect */
         .hero::before {
             content: '';
             position: absolute;
@@ -101,10 +99,9 @@
             background-image:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://img.freepik.com/free-photo/woman-home-applying-cream-mask_1303-24618.jpg');
             background-size:cover;
             background-position:center;
-            transition: transform .5s ease; /* Smooth transition for the hover effect */
+            transition: transform .5s ease;
             z-index: -1;
         }
-        /* Change: Defines the hover effect to slightly zoom the background image */
         .hero:hover::before {
             transform: scale(1.05);
         }
@@ -480,7 +477,7 @@
     <!-- ---------- SCRIPT ---------- -->
     <script>
         /* ------------ STATE ------------ */
-        const cart = {};      // { productId: { name, price, quantity, img } }
+        const cart = {};       // { productId: { name, price, quantity, img } }
         const wishlist = new Set(); // Set of productIds
 
         // Store user details for the billing process
@@ -666,90 +663,83 @@
                     </div>
                     <div class="form-group">
                         <label for="address">Shipping Address</label>
-                        <textarea id="address" name="address" rows="4" required>${userDetails.address}</textarea>
+                        <textarea id="address" name="address" rows="3" required>${userDetails.address}</textarea>
                     </div>
-                    <button type="submit" class="cta-btn">Review Order</button>
+                    <div class="checkout-buttons">
+                        <button type="button" class="btn-primary" onclick="submitBillingForm()">Review Order</button>
+                    </div>
                 </form>
             `;
             openModal('Billing Information', billingFormHtml);
-
-            // Add event listener to the form to handle submission
-            qs('billingForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                submitBilling();
-            });
         }
 
-        // Submits the billing form and shows the order summary
-        function submitBilling() {
+        // Handles the form submission and saves user details
+        function submitBillingForm() {
             const form = qs('billingForm');
             if (form.checkValidity()) {
-                // Save user details
                 userDetails.name = qs('name').value;
                 userDetails.email = qs('email').value;
                 userDetails.phone = qs('phone').value;
                 userDetails.address = qs('address').value;
-
                 showOrderSummary();
             } else {
-                openModal('Invalid Information', '<p>Please fill out all the required fields correctly.</p>');
+                form.reportValidity();
             }
         }
 
-        // Displays the final order summary and payment button
+        // Displays the order summary before final payment
         function showOrderSummary() {
+            let itemsHtml = '';
             let total = 0;
-            const orderItemsHtml = Object.values(cart).map(item => {
+            Object.values(cart).forEach(item => {
                 const subtotal = item.price * item.quantity;
                 total += subtotal;
-                return `<div class="order-summary-item">
-                            <span>${item.name} (${item.quantity})</span>
-                            <span>₹${subtotal.toLocaleString('en-IN')}</span>
-                        </div>`;
-            }).join('');
-
-            const orderSummaryHtml = `
+                itemsHtml += `
+                    <div class="order-summary-item">
+                        <span>${item.name} (${item.quantity})</span>
+                        <span>₹${subtotal.toLocaleString('en-IN')}</span>
+                    </div>
+                `;
+            });
+            const summaryHtml = `
                 <div class="order-summary">
-                    <h3>Order Details</h3>
-                    ${orderItemsHtml}
+                    <h3>Your Order</h3>
+                    ${itemsHtml}
                     <div class="order-summary-item order-summary-total">
-                        <span>Total:</span>
+                        <span>Grand Total:</span>
                         <span>₹${total.toLocaleString('en-IN')}</span>
                     </div>
                 </div>
                 <div class="info-block">
-                    <h4>Shipping to:</h4>
+                    <h3>Shipping Details</h3>
                     <p><strong>Name:</strong> ${userDetails.name}</p>
+                    <p><strong>Email:</strong> ${userDetails.email}</p>
+                    <p><strong>Phone:</strong> ${userDetails.phone}</p>
                     <p><strong>Address:</strong> ${userDetails.address.replace(/\n/g, '<br>')}</p>
                 </div>
                 <div class="checkout-buttons">
-                    <button class="cta-btn btn-back" onclick="showBillingForm()">Go Back</button>
-                    <button class="cta-btn" onclick="processPayment()">Pay Now</button>
+                    <button type="button" class="btn-primary btn-back" onclick="showBillingForm()">Back</button>
+                    <button type="button" class="btn-primary" onclick="confirmOrder()">Confirm & Pay</button>
                 </div>
             `;
-            openModal('Order Summary', orderSummaryHtml);
+            openModal('Order Summary', summaryHtml);
         }
 
-        // Final step: simulates payment and resets the cart
-        function processPayment() {
-            openModal('Thank You', '<h2>Payment Successful!</h2><p>Your order has been placed and is being processed. Thank you for shopping with EVIE.</p>');
-            
-            // Clear the cart
-            for (const id in cart) delete cart[id];
+        // Final confirmation and success message
+        function confirmOrder() {
+            openModal('Order Confirmed!', `
+                <p>Thank you for your purchase, ${userDetails.name}!</p>
+                <p>Your order has been placed and will be shipped to:</p>
+                <div class="info-block">${userDetails.address.replace(/\n/g, '<br>')}</div>
+            `);
+            // Reset cart
+            Object.keys(cart).forEach(key => delete cart[key]);
             updateCartSidebar();
-            
-            // Clear user details
-            for (const key in userDetails) userDetails[key] = '';
         }
 
-        /* ------------ OPTIONAL LIVE SEARCH ------------ */
-        qs('searchInput').addEventListener('input', (e) => {
-            const q = e.target.value.toLowerCase();
-            document.querySelectorAll('.product-card').forEach(card => {
-                const name = card.querySelector('h3').textContent.toLowerCase();
-                card.style.display = name.includes(q) ? '' : 'none';
-            });
-        });
+        // Initial setup
+        updateCartSidebar();
+        updateWishlistSidebar();
     </script>
 </body>
 </html>
