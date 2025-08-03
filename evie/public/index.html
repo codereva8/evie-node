@@ -16,9 +16,9 @@
 
         /* --------------  THEME VARIABLES -------------- */
         :root{
-            --primary-gold:#D4AF37;
-            --secondary-gold:#F7E7CE;
-            --accent-pink:#F4C2C2;
+            --primary-accent: #1A5276;
+            --secondary-bg:#F0F2F5; /* A light gray for secondary backgrounds */
+            --accent-pink:#F4C2C2; /* Not used in this theme */
 
             --bg-light:#FEFEFE;
             --bg-dark:#1A1A1A;
@@ -53,7 +53,7 @@
         .logo{
             font-family:'Playfair Display',serif;
             font-size:2.2rem;font-weight:600;
-            color:var(--primary-gold);letter-spacing:-1px;
+            color:var(--primary-accent);letter-spacing:-1px;
         }
 
         .search-container{position:relative;flex:1;max-width:400px;margin:0 2rem;}
@@ -62,7 +62,7 @@
             border:2px solid var(--border-light);border-radius:25px;
             background:rgba(255,255,255,.9);outline:none;transition:.3s;
         }
-        .search-box:focus{border-color:var(--primary-gold);transform:scale(1.02);}
+        .search-box:focus{border-color:var(--primary-accent);transform:scale(1.02);}
         body.dark-mode .search-box{background:rgba(40,40,40,.9);border-color:#444;color:#E8E8E8;}
         .search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--text-light);}
 
@@ -71,35 +71,55 @@
             position:relative;font-size:1.3rem;padding:8px;border:none;background:none;
             color:var(--text-dark);border-radius:50%;cursor:pointer;transition:.3s;
         }
-        .icon-btn:hover{background:var(--secondary-gold);transform:scale(1.1);}
+        .icon-btn:hover{background:var(--secondary-bg);transform:scale(1.1);}
         body.dark-mode .icon-btn{color:#E8E8E8;}
-        body.dark-mode .icon-btn:hover{background:rgba(212,175,55,.2);}
+        body.dark-mode .icon-btn:hover{background:rgba(240,242,245,.2);}
         .badge{
             position:absolute;top:-5px;right:-5px;
             min-width:18px;padding:2px 6px;font-size:10px;
-            background:var(--primary-gold);color:#fff;border-radius:10px;text-align:center;
+            background:var(--primary-accent);color:#fff;border-radius:10px;text-align:center;
         }
 
         /* --------------  HERO -------------- */
         .hero{
-            height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
-            background:linear-gradient(135deg,var(--secondary-gold) 0%,#FFF5E6 100%);
+            /* Change: Sets the hero section to a fixed height of 500px as requested */
+            height:500px;
+            display:flex;align-items:center;justify-content:center;text-align:center;
             overflow:hidden;position:relative;
+            /* New: Adds rounded corners to the hero section */
+            border-radius: 20px;
+            margin: 20px 5%;
         }
-        body.dark-mode .hero{background:linear-gradient(135deg,#2C2416 0%,#1A1A1A 100%);}
-        .hero-content{max-width:800px;padding:0 20px;animation:fadeInUp 1s ease-out;}
+        /* Change: Adds a pseudo-element to handle the background image and the hover effect */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://img.freepik.com/free-photo/woman-home-applying-cream-mask_1303-24618.jpg');
+            background-size:cover;
+            background-position:center;
+            transition: transform .5s ease; /* Smooth transition for the hover effect */
+            z-index: -1;
+        }
+        /* Change: Defines the hover effect to slightly zoom the background image */
+        .hero:hover::before {
+            transform: scale(1.05);
+        }
+
         .hero h1{
             font-family:'Playfair Display',serif;font-size:4rem;font-weight:600;letter-spacing:-2px;
-            color:var(--text-dark);margin-bottom:1rem;
+            color:#fff;margin-bottom:1rem;
         }
-        body.dark-mode .hero h1{color:#E8E8E8;}
-        .hero p{font-size:1.2rem;color:var(--text-light);margin-bottom:2rem;font-weight:300;}
+        .hero p{font-size:1.2rem;color:rgba(255,255,255,.8);margin-bottom:2rem;font-weight:300;}
         .cta-btn{
             display:inline-block;padding:15px 40px;border:none;border-radius:30px;
-            background:var(--primary-gold);color:#fff;font-size:1.1rem;font-weight:500;
+            background:var(--primary-accent);color:#fff;font-size:1.1rem;font-weight:500;
             text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:.3s;
         }
-        .cta-btn:hover{background:#B8941F;transform:translateY(-2px);box-shadow:0 10px 25px rgba(212,175,55,.3);}
+        .cta-btn:hover{background:#114264;transform:translateY(-2px);box-shadow:0 10px 25px rgba(26,82,118,.3);}
 
         /* --------------  PRODUCTS -------------- */
         .products{padding:100px 5%;background:var(--bg-light);}
@@ -133,26 +153,26 @@
             display:flex;align-items:center;justify-content:center;
             border:none;border-radius:50%;background:rgba(255,255,255,.9);cursor:pointer;transition:.3s;
         }
-        .wishlist-btn:hover,.wishlist-btn.active{background:var(--primary-gold);color:#fff;}
+        .wishlist-btn:hover,.wishlist-btn.active{background:var(--primary-accent);color:#fff;}
         .product-info{padding:2rem;}
         .product-info h3{
             font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.5rem;color:var(--text-dark);
         }
         body.dark-mode .product-info h3{color:#E8E8E8;}
         .product-info p{color:var(--text-light);font-size:.9rem;margin-bottom:1rem;}
-        .product-price{font-size:1.5rem;font-weight:600;color:var(--primary-gold);margin-bottom:1rem;}
+        .product-price{font-size:1.5rem;font-weight:600;color:var(--primary-accent);margin-bottom:1rem;}
         .product-buttons{display:flex;gap:10px;}
         .btn-primary,.btn-secondary{
             flex:1;padding:12px 20px;border:none;border-radius:25px;font-size:.9rem;font-weight:500;cursor:pointer;transition:.3s;
         }
-        .btn-primary{background:var(--primary-gold);color:#fff;}
-        .btn-primary:hover{background:#B8941F;transform:translateY(-1px);}
-        .btn-secondary{background:transparent;color:var(--primary-gold);border:2px solid var(--primary-gold);}
-        .btn-secondary:hover{background:var(--primary-gold);color:#fff;}
+        .btn-primary{background:var(--primary-accent);color:#fff;}
+        .btn-primary:hover{background:#114264;transform:translateY(-1px);}
+        .btn-secondary{background:transparent;color:var(--primary-accent);border:2px solid var(--primary-accent);}
+        .btn-secondary:hover{background:var(--primary-accent);color:#fff;}
 
         /* --------------  ROUTINE -------------- */
-        .routine{padding:100px 5%;background:linear-gradient(135deg,#F8F8F8 0%,var(--secondary-gold) 100%);}
-        body.dark-mode .routine{background:linear-gradient(135deg,#2A2A2A 0%,#2C2416 100%);}
+        .routine{padding:100px 5%;background:linear-gradient(135deg,#F8F8F8 0%,var(--secondary-bg) 100%);}
+        body.dark-mode .routine{background:linear-gradient(135deg,#2A2A2A 0%,#242424 100%);}
         .routine h2{font-family:'Playfair Display',serif;font-size:2.5rem;text-align:center;margin-bottom:3rem;color:var(--text-dark);}
         body.dark-mode .routine h2{color:#E8E8E8;}
         .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;max-width:1000px;margin:0 auto;}
@@ -162,7 +182,7 @@
         }
         body.dark-mode .step{background:rgba(42,42,42,.8);}
         .step:hover{transform:translateY(-5px);}
-        .step h4{font-size:1.2rem;color:var(--primary-gold);margin-bottom:1rem;}
+        .step h4{font-size:1.2rem;color:var(--primary-accent);margin-bottom:1rem;}
 
         /* --------------  NEWSLETTER -------------- */
         .newsletter{padding:80px 5%;text-align:center;background:var(--text-dark);color:#fff;}
@@ -174,16 +194,16 @@
         }
         .newsletter button{
             padding:15px 30px;border:none;border-radius:25px;font-weight:500;cursor:pointer;
-            background:var(--primary-gold);color:#fff;transition:.3s;
+            background:var(--primary-accent);color:#fff;transition:.3s;
         }
-        .newsletter button:hover{background:#B8941F;}
+        .newsletter button:hover{background:#114264;}
 
         /* --------------  FOOTER -------------- */
         footer{padding:40px 5%;text-align:center;background:#F8F8F8;border-top:1px solid var(--border-light);}
         body.dark-mode footer{background:#1F1F1F;border-top-color:#333;}
         .footer-links{margin-bottom:1rem;}
-        .footer-link{color:var(--primary-gold);margin:0 10px;cursor:pointer;transition:.3s;}
-        .footer-link:hover{color:#B8941F;}
+        .footer-link{color:var(--primary-accent);margin:0 10px;cursor:pointer;transition:.3s;}
+        .footer-link:hover{color:#114264;}
 
         /* --------------  MODAL -------------- */
         .modal{
@@ -201,8 +221,32 @@
             position:absolute;top:20px;right:25px;font-size:2rem;cursor:pointer;
             color:var(--text-light);transition:.3s;
         }
-        .modal-close:hover{color:var(--primary-gold);}
-        .modal h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1rem;color:var(--primary-gold);}
+        .modal-close:hover{color:var(--primary-accent);}
+        .modal h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1rem;color:var(--primary-accent);}
+        /* Styles for the new billing form */
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-accent); }
+        .checkout-buttons { display: flex; justify-content: space-between; margin-top: 2rem; gap: 1rem; }
+        .btn-back {
+            background-color: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+        }
+        .order-summary { margin-bottom: 2rem; }
+        .order-summary h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; }
+        .order-summary-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-light); }
+        .order-summary-total { font-weight: bold; font-size: 1.2rem; }
+        .info-block { margin-top: 1.5rem; padding: 1rem; border: 1px solid var(--border-light); border-radius: 10px; }
 
         /* --------------  SIDEBAR -------------- */
         .sidebar{
@@ -217,14 +261,14 @@
             padding-bottom:1rem;border-bottom:1px solid var(--border-light);
         }
         body.dark-mode .sidebar-header{border-bottom-color:#444;}
-        .sidebar-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--primary-gold);}
+        .sidebar-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--primary-accent);}
         .cart-item,.wishlist-item{
             display:flex;align-items:center;padding:1rem 0;border-bottom:1px solid var(--border-light);
         }
         body.dark-mode .cart-item,body.dark-mode .wishlist-item{border-bottom-color:#444;}
         .item-image{
             width:60px;height:60px;margin-right:1rem;border-radius:10px;
-            background:var(--secondary-gold);display:flex;align-items:center;justify-content:center;
+            background:var(--secondary-bg);display:flex;align-items:center;justify-content:center;
             overflow: hidden;
         }
         .item-image img {
@@ -234,19 +278,19 @@
         }
         .item-details{flex:1;}
         .item-name{font-weight:500;margin-bottom:.5rem;}
-        .item-price{color:var(--primary-gold);font-weight:600;}
+        .item-price{color:var(--primary-accent);font-weight:600;}
         .quantity-controls{display:flex;align-items:center;gap:10px;margin-top:.5rem;}
         .qty-btn{
             width:25px;height:25px;border:none;border-radius:50%;cursor:pointer;
-            background:var(--primary-gold);color:#fff;display:flex;align-items:center;justify-content:center;
+            background:var(--primary-accent);color:#fff;display:flex;align-items:center;justify-content:center;
         }
-        .cart-total{margin-top:2rem;padding-top:1rem;border-top:2px solid var(--primary-gold);text-align:center;}
-        .total-amount{font-size:1.5rem;font-weight:600;color:var(--primary-gold);margin-bottom:1rem;}
+        .cart-total{margin-top:2rem;padding-top:1rem;border-top:2px solid var(--primary-accent);text-align:center;}
+        .total-amount{font-size:1.5rem;font-weight:600;color:var(--primary-accent);margin-bottom:1rem;}
         .checkout-btn{
             width:100%;padding:15px;border:none;border-radius:25px;
-            background:var(--primary-gold);color:#fff;font-size:1.1rem;font-weight:500;cursor:pointer;transition:.3s;
+            background:var(--primary-accent);color:#fff;font-size:1.1rem;font-weight:500;cursor:pointer;transition:.3s;
         }
-        .checkout-btn:hover{background:#B8941F;}
+        .checkout-btn:hover{background:#114264;}
         .empty-state{text-align:center;padding:3rem 0;color:var(--text-light);}
 
         /* --------------  ANIMATIONS -------------- */
@@ -304,7 +348,7 @@
             <div class="product-card" data-product="purity-cream">
                 <button class="wishlist-btn" onclick="toggleWishlist(this,'purity-cream')"><i class="fas fa-heart"></i></button>
                 <div class="product-image">
-                    <img src="https://img.freepik.com/free-photo/woman-home-applying-cream-mask_1303-24618.jpg" alt="Purity Cream Cleanser product photo"/>
+                    <img src="https://img.freepik.com/premium-photo/dispenser-with-cleansing-foam-light-grey-background-cosmetic-product-3d_70626-22643.jpg" alt="Purity Cream Cleanser product photo"/>
                 </div>
                 <div class="product-info">
                     <h3>Purity Cream Cleanser</h3>
@@ -321,7 +365,7 @@
             <div class="product-card" data-product="lustrous-glow">
                 <button class="wishlist-btn" onclick="toggleWishlist(this,'lustrous-glow')"><i class="fas fa-heart"></i></button>
                 <div class="product-image">
-                    <img src="https://img.freepik.com/free-photo/cosmetics-composition-with-serum-bottles_23-2148549119.jpg" alt="Lustrous Glow Serum product photo"/>
+                    <img src="https://img.freepik.com/premium-photo/woman-using-dropper-bottle_53876-113570.jpg" alt="Lustrous Glow Serum product photo"/>
                 </div>
                 <div class="product-info">
                     <h3>Lustrous Glow Serum</h3>
@@ -338,7 +382,7 @@
             <div class="product-card" data-product="cloud-veil">
                 <button class="wishlist-btn" onclick="toggleWishlist(this,'cloud-veil')"><i class="fas fa-heart"></i></button>
                 <div class="product-image">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNzNb2u5XxppOqS5tr0K1S7-vpGB9NIz46lkOE9mwt0CsqGk94l0exOxdng4NFL1zMPRE&usqp=CAU" alt="Cloud Veil Moisturizer product photo"/>
+                    <img src="https://img.freepik.com/free-photo/woman-taking-face-cream-with-her-finger-bathroom_140725-1637.jpg?semt=ais_hybrid&w=740&q=80" alt="Cloud Veil Moisturizer product photo"/>
                 </div>
                 <div class="product-info">
                     <h3>Cloud Veil Moisturizer</h3>
@@ -355,7 +399,7 @@
             <div class="product-card" data-product="radiant-elixir">
                 <button class="wishlist-btn" onclick="toggleWishlist(this,'radiant-elixir')"><i class="fas fa-heart"></i></button>
                 <div class="product-image">
-                    <img src="https://img.freepik.com/free-photo/young-beautiful-blonde-girl-cares-face-skin-with-moisturizer-front-mirror_496169-939.jpg?semt=ais_hybrid&w=740&q=80" alt="Radiant Elixir Oil product photo"/>
+                    <img src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/01/2025/05/23/ilustrasi-face-oil-1-1057865390.jpg" alt="Radiant Elixir Oil product photo"/>
                 </div>
                 <div class="product-info">
                     <h3>Radiant Elixir Oil</h3>
@@ -428,18 +472,38 @@
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()">&times;</span>
             <h2 id="modalTitle"></h2>
-            <p id="modalText"></p>
+            <!-- New container for dynamic modal content -->
+            <div id="modalBody"></div>
         </div>
     </div>
 
     <!-- ---------- SCRIPT ---------- -->
     <script>
         /* ------------ STATE ------------ */
-        const cart = {};              // { productId: { name, price, quantity } }
-        const wishlist = new Set();   // Set of productIds
+        const cart = {};      // { productId: { name, price, quantity, img } }
+        const wishlist = new Set(); // Set of productIds
+
+        // Store user details for the billing process
+        const userDetails = {
+            name: '',
+            email: '',
+            phone: '',
+            address: ''
+        };
 
         /* ------------ HELPERS ------------ */
         const qs = id => document.getElementById(id);
+        
+        // Helper function to get product details from the DOM
+        function getProductDetails(productId) {
+            const card = document.querySelector(`[data-product="${productId}"]`);
+            if (!card) return null;
+            return {
+                name: card.querySelector('h3').textContent,
+                price: parseFloat(card.querySelector('.product-price').textContent.replace('₹', '').replace(',', '')),
+                img: card.querySelector('.product-image img').src
+            };
+        }
 
         /* ------------ DARK MODE ------------ */
         qs('darkModeToggle').addEventListener('click', () => {
@@ -464,33 +528,38 @@
             container.innerHTML = '';
 
             let count = 0;
-            wishlist.forEach(pid => {
-                const card = document.querySelector(`[data-product="${pid}"]`);
-                if (!card) return;
-                const name  = card.querySelector('h3').textContent;
-                const price = card.querySelector('.product-price').textContent;
+            if (wishlist.size === 0) {
+                container.innerHTML = '<div class="empty-state">Your wishlist is empty.</div>';
+            } else {
+                wishlist.forEach(pid => {
+                    const details = getProductDetails(pid);
+                    if (!details) return;
 
-                container.innerHTML += `
-                    <div class="wishlist-item">
-                        <div class="item-image"><i class="fas fa-heart"></i></div>
-                        <div class="item-details">
-                            <div class="item-name">${name}</div>
-                            <div class="item-price">${price}</div>
-                        </div>
-                    </div>`;
-                count++;
-            });
-
+                    container.innerHTML += `
+                        <div class="wishlist-item">
+                            <div class="item-image">
+                                <img src="${details.img}" alt="${details.name} photo"/>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">${details.name}</div>
+                                <div class="item-price">₹${details.price}</div>
+                            </div>
+                        </div>`;
+                    count++;
+                });
+            }
             badge.textContent = count;
-            if (count === 0) container.innerHTML = '<div class="empty-state">Your wishlist is empty.</div>';
         }
 
         /* ------------ CART ------------ */
         function addToCart(productId, productName, productPrice) {
+            const productDetails = getProductDetails(productId);
+            if (!productDetails) return;
+
             if (cart[productId]) {
                 cart[productId].quantity++;
             } else {
-                cart[productId] = { name: productName, price: productPrice, quantity: 1 };
+                cart[productId] = { ...productDetails, quantity: 1 };
             }
             updateCartSidebar();
         }
@@ -504,9 +573,9 @@
 
         function updateCartSidebar() {
             const container = qs('cartItems');
-            const badge     = qs('cartCount');
+            const badge = qs('cartCount');
             const totalWrap = qs('cartTotal');
-            const totalAmt  = qs('totalAmount');
+            const totalAmt = qs('totalAmount');
 
             container.innerHTML = '';
             let itemCount = 0, total = 0;
@@ -516,7 +585,9 @@
                 total += item.price * item.quantity;
                 container.innerHTML += `
                     <div class="cart-item">
-                        <div class="item-image"><i class="fas fa-box"></i></div>
+                        <div class="item-image">
+                            <img src="${item.img}" alt="${item.name} photo"/>
+                        </div>
                         <div class="item-details">
                             <div class="item-name">${item.name}</div>
                             <div class="item-price">₹${item.price}</div>
@@ -530,7 +601,7 @@
             });
 
             badge.textContent = itemCount;
-            totalAmt.textContent = total;
+            totalAmt.textContent = total.toLocaleString('en-IN');
             totalWrap.style.display = itemCount ? 'block' : 'none';
             if (!itemCount) container.innerHTML = '<div class="empty-state">Your cart is empty.</div>';
         }
@@ -545,30 +616,130 @@
         }
 
         /* ------------ MODAL ------------ */
-        function openModal(title, text) {
+        function openModal(title, content) {
             qs('modalTitle').textContent = title;
-            qs('modalText').textContent  = text;
+            qs('modalBody').innerHTML = content;
             qs('modal').classList.add('show');
         }
-        function closeModal() { qs('modal').classList.remove('show'); }
+        function closeModal() {
+            qs('modal').classList.remove('show');
+        }
 
         /* ------------ NEWSLETTER ------------ */
         function subscribe() {
             const email = qs('emailInput').value.trim();
             if (!email) {
-                openModal('Error', 'Please enter a valid email address.');
+                openModal('Error', '<p>Please enter a valid email address.</p>');
                 return;
             }
-            openModal('Subscription Successful', `Thank you for subscribing, ${email}!`);
+            openModal('Subscription Successful', `<p>Thank you for subscribing, ${email}!</p>`);
             qs('emailInput').value = '';
         }
 
-        /* ------------ CHECKOUT PLACEHOLDER ------------ */
+        /* ------------ UPDATED CHECKOUT PROCESS ------------ */
+        // This function initiates the multi-step checkout
         function checkout() {
-            openModal('Thank You', 'Thank you for your purchase! Your order is being processed.');
+            toggleSidebar('cartSidebar');
+            // Check if cart is empty before proceeding
+            if (Object.keys(cart).length === 0) {
+                openModal('Cart Empty', '<p>Your cart is empty. Please add items to proceed to checkout.</p>');
+                return;
+            }
+            showBillingForm();
+        }
+
+        // Displays the billing information form in the modal
+        function showBillingForm() {
+            const billingFormHtml = `
+                <form id="billingForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required value="${userDetails.name}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required value="${userDetails.email}">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required value="${userDetails.phone}">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Shipping Address</label>
+                        <textarea id="address" name="address" rows="4" required>${userDetails.address}</textarea>
+                    </div>
+                    <button type="submit" class="cta-btn">Review Order</button>
+                </form>
+            `;
+            openModal('Billing Information', billingFormHtml);
+
+            // Add event listener to the form to handle submission
+            qs('billingForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                submitBilling();
+            });
+        }
+
+        // Submits the billing form and shows the order summary
+        function submitBilling() {
+            const form = qs('billingForm');
+            if (form.checkValidity()) {
+                // Save user details
+                userDetails.name = qs('name').value;
+                userDetails.email = qs('email').value;
+                userDetails.phone = qs('phone').value;
+                userDetails.address = qs('address').value;
+
+                showOrderSummary();
+            } else {
+                openModal('Invalid Information', '<p>Please fill out all the required fields correctly.</p>');
+            }
+        }
+
+        // Displays the final order summary and payment button
+        function showOrderSummary() {
+            let total = 0;
+            const orderItemsHtml = Object.values(cart).map(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                return `<div class="order-summary-item">
+                            <span>${item.name} (${item.quantity})</span>
+                            <span>₹${subtotal.toLocaleString('en-IN')}</span>
+                        </div>`;
+            }).join('');
+
+            const orderSummaryHtml = `
+                <div class="order-summary">
+                    <h3>Order Details</h3>
+                    ${orderItemsHtml}
+                    <div class="order-summary-item order-summary-total">
+                        <span>Total:</span>
+                        <span>₹${total.toLocaleString('en-IN')}</span>
+                    </div>
+                </div>
+                <div class="info-block">
+                    <h4>Shipping to:</h4>
+                    <p><strong>Name:</strong> ${userDetails.name}</p>
+                    <p><strong>Address:</strong> ${userDetails.address.replace(/\n/g, '<br>')}</p>
+                </div>
+                <div class="checkout-buttons">
+                    <button class="cta-btn btn-back" onclick="showBillingForm()">Go Back</button>
+                    <button class="cta-btn" onclick="processPayment()">Pay Now</button>
+                </div>
+            `;
+            openModal('Order Summary', orderSummaryHtml);
+        }
+
+        // Final step: simulates payment and resets the cart
+        function processPayment() {
+            openModal('Thank You', '<h2>Payment Successful!</h2><p>Your order has been placed and is being processed. Thank you for shopping with EVIE.</p>');
+            
+            // Clear the cart
             for (const id in cart) delete cart[id];
             updateCartSidebar();
-            toggleSidebar('cartSidebar');
+            
+            // Clear user details
+            for (const key in userDetails) userDetails[key] = '';
         }
 
         /* ------------ OPTIONAL LIVE SEARCH ------------ */
@@ -582,4 +753,3 @@
     </script>
 </body>
 </html>
-
