@@ -4,7 +4,7 @@ const path = require('path');
 
 // Initialize app
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;  // ✅ Use Render's assigned port
 
 // Serve static files (HTML, CSS, JS, images)
 app.use(express.static(path.join(__dirname, 'public')));
