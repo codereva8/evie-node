@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVIE Skin - Luxury Skincare Collection</title>
+
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- Styles -->
+    <style>
+        /* --------------  RESET -------------- */
+        *{margin:0;padding:0;box-sizing:border-box;}
+
+        /* --------------  THEME VARIABLES -------------- */
+        :root{
+            --primary-gold:#D4AF37;
+            --secondary-gold:#F7E7CE;
+            --accent-pink:#F4C2C2;
+
+            --bg-light:#FEFEFE;
+            --bg-dark:#1A1A1A;
+
+            --text-dark:#2C2C2C;
+            --text-light:#666;
+            --border-light:#E8E8E8;
+        }
+
+        /* --------------  BASE -------------- */
+        body{
+            font-family:'Inter',sans-serif;
+            color:var(--text-dark);
+            background:var(--bg-light);
+            line-height:1.6;
+            transition:background .3s,color .3s;
+        }
+        body.dark-mode{background:var(--bg-dark);color:#E8E8E8;}
+
+        /* --------------  HEADER -------------- */
+        header{
+            position:fixed;top:0;left:0;width:100%;
+            display:flex;align-items:center;justify-content:space-between;
+            padding:15px 5%;
+            background:rgba(255,255,255,.95);
+            backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border-light);
+            z-index:1000;transition:.3s;
+        }
+        body.dark-mode header{background:rgba(26,26,26,.95);border-bottom-color:#333;}
+
+        .logo{
+            font-family:'Playfair Display',serif;
+            font-size:2.2rem;font-weight:600;
+            color:var(--primary-gold);letter-spacing:-1px;
+        }
+
+        .search-container{position:relative;flex:1;max-width:400px;margin:0 2rem;}
+        .search-box{
+            width:100%;padding:12px 20px 12px 45px;font-size:14px;
+            border:2px solid var(--border-light);border-radius:25px;
+            background:rgba(255,255,255,.9);outline:none;transition:.3s;
+        }
+        .search-box:focus{border-color:var(--primary-gold);transform:scale(1.02);}
+        body.dark-mode .search-box{background:rgba(40,40,40,.9);border-color:#444;color:#E8E8E8;}
+        .search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--text-light);}
+
+        .header-actions{display:flex;align-items:center;gap:20px;}
+        .icon-btn{
+            position:relative;font-size:1.3rem;padding:8px;border:none;background:none;
+            color:var(--text-dark);border-radius:50%;cursor:pointer;transition:.3s;
+        }
+        .icon-btn:hover{background:var(--secondary-gold);transform:scale(1.1);}
+        body.dark-mode .icon-btn{color:#E8E8E8;}
+        body.dark-mode .icon-btn:hover{background:rgba(212,175,55,.2);}
+        .badge{
+            position:absolute;top:-5px;right:-5px;
+            min-width:18px;padding:2px 6px;font-size:10px;
+            background:var(--primary-gold);color:#fff;border-radius:10px;text-align:center;
+        }
+
+        /* --------------  HERO -------------- */
+        .hero{
+            height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+            background:linear-gradient(135deg,var(--secondary-gold) 0%,#FFF5E6 100%);
+            overflow:hidden;position:relative;
+        }
+        body.dark-mode .hero{background:linear-gradient(135deg,#2C2416 0%,#1A1A1A 100%);}
+        .hero-content{max-width:800px;padding:0 20px;animation:fadeInUp 1s ease-out;}
+        .hero h1{
+            font-family:'Playfair Display',serif;font-size:4rem;font-weight:600;letter-spacing:-2px;
+            color:var(--text-dark);margin-bottom:1rem;
+        }
+        body.dark-mode .hero h1{color:#E8E8E8;}
+        .hero p{font-size:1.2rem;color:var(--text-light);margin-bottom:2rem;font-weight:300;}
+        .cta-btn{
+            display:inline-block;padding:15px 40px;border:none;border-radius:30px;
+            background:var(--primary-gold);color:#fff;font-size:1.1rem;font-weight:500;
+            text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:.3s;
+        }
+        .cta-btn:hover{background:#B8941F;transform:translateY(-2px);box-shadow:0 10px 25px rgba(212,175,55,.3);}
+
+        /* --------------  PRODUCTS -------------- */
+        .products{padding:100px 5%;background:var(--bg-light);}
+        body.dark-mode .products{background:var(--bg-dark);}
+        .products h2{
+            font-family:'Playfair Display',serif;font-size:2.5rem;text-align:center;margin-bottom:3rem;
+            color:var(--text-dark);
+        }
+        body.dark-mode .products h2{color:#E8E8E8;}
+        .product-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:2rem;max-width:1200px;margin:0 auto;
+        }
+        .product-card{
+            background:#fff;border-radius:20px;overflow:hidden;position:relative;
+            box-shadow:0 10px 30px rgba(0,0,0,.1);transition:.3s;
+        }
+        body.dark-mode .product-card{background:#2A2A2A;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+        .product-card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,.15);}
+        .product-image{
+            height:250px;width: 100%; overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .wishlist-btn{
+            position:absolute;top:15px;right:15px;width:40px;height:40px;
+            display:flex;align-items:center;justify-content:center;
+            border:none;border-radius:50%;background:rgba(255,255,255,.9);cursor:pointer;transition:.3s;
+        }
+        .wishlist-btn:hover,.wishlist-btn.active{background:var(--primary-gold);color:#fff;}
+        .product-info{padding:2rem;}
+        .product-info h3{
+            font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.5rem;color:var(--text-dark);
+        }
+        body.dark-mode .product-info h3{color:#E8E8E8;}
+        .product-info p{color:var(--text-light);font-size:.9rem;margin-bottom:1rem;}
+        .product-price{font-size:1.5rem;font-weight:600;color:var(--primary-gold);margin-bottom:1rem;}
+        .product-buttons{display:flex;gap:10px;}
+        .btn-primary,.btn-secondary{
+            flex:1;padding:12px 20px;border:none;border-radius:25px;font-size:.9rem;font-weight:500;cursor:pointer;transition:.3s;
+        }
+        .btn-primary{background:var(--primary-gold);color:#fff;}
+        .btn-primary:hover{background:#B8941F;transform:translateY(-1px);}
+        .btn-secondary{background:transparent;color:var(--primary-gold);border:2px solid var(--primary-gold);}
+        .btn-secondary:hover{background:var(--primary-gold);color:#fff;}
+
+        /* --------------  ROUTINE -------------- */
+        .routine{padding:100px 5%;background:linear-gradient(135deg,#F8F8F8 0%,var(--secondary-gold) 100%);}
+        body.dark-mode .routine{background:linear-gradient(135deg,#2A2A2A 0%,#2C2416 100%);}
+        .routine h2{font-family:'Playfair Display',serif;font-size:2.5rem;text-align:center;margin-bottom:3rem;color:var(--text-dark);}
+        body.dark-mode .routine h2{color:#E8E8E8;}
+        .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;max-width:1000px;margin:0 auto;}
+        .step{
+            text-align:center;padding:2rem;border-radius:15px;background:rgba(255,255,255,.8);
+            backdrop-filter:blur(10px);transition:.3s;
+        }
+        body.dark-mode .step{background:rgba(42,42,42,.8);}
+        .step:hover{transform:translateY(-5px);}
+        .step h4{font-size:1.2rem;color:var(--primary-gold);margin-bottom:1rem;}
+
+        /* --------------  NEWSLETTER -------------- */
+        .newsletter{padding:80px 5%;text-align:center;background:var(--text-dark);color:#fff;}
+        body.dark-mode .newsletter{background:#0F0F0F;}
+        .newsletter h2{font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:1rem;}
+        .newsletter-form{display:flex;gap:10px;max-width:500px;margin:2rem auto 0;}
+        .newsletter input{
+            flex:1;padding:15px 20px;border:none;border-radius:25px;font-size:1rem;outline:none;
+        }
+        .newsletter button{
+            padding:15px 30px;border:none;border-radius:25px;font-weight:500;cursor:pointer;
+            background:var(--primary-gold);color:#fff;transition:.3s;
+        }
+        .newsletter button:hover{background:#B8941F;}
+
+        /* --------------  FOOTER -------------- */
+        footer{padding:40px 5%;text-align:center;background:#F8F8F8;border-top:1px solid var(--border-light);}
+        body.dark-mode footer{background:#1F1F1F;border-top-color:#333;}
+        .footer-links{margin-bottom:1rem;}
+        .footer-link{color:var(--primary-gold);margin:0 10px;cursor:pointer;transition:.3s;}
+        .footer-link:hover{color:#B8941F;}
+
+        /* --------------  MODAL -------------- */
+        .modal{
+            display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(0,0,0,.8);backdrop-filter:blur(5px);z-index:2000;
+            align-items:center;justify-content:center;animation:fadeIn .3s;
+        }
+        .modal.show{display:flex;}
+        .modal-content{
+            position:relative;width:90%;max-width:500px;padding:3rem;border-radius:20px;
+            background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:slideUp .3s;
+        }
+        body.dark-mode .modal-content{background:#2A2A2A;color:#E8E8E8;}
+        .modal-close{
+            position:absolute;top:20px;right:25px;font-size:2rem;cursor:pointer;
+            color:var(--text-light);transition:.3s;
+        }
+        .modal-close:hover{color:var(--primary-gold);}
+        .modal h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1rem;color:var(--primary-gold);}
+
+        /* --------------  SIDEBAR -------------- */
+        .sidebar{
+            position:fixed;top:0;right:-400px;width:400px;height:100vh;
+            background:#fff;box-shadow:-5px 0 20px rgba(0,0,0,.1);padding:2rem;overflow-y:auto;
+            transition:right .3s;z-index:1500;
+        }
+        body.dark-mode .sidebar{background:#2A2A2A;box-shadow:-5px 0 20px rgba(0,0,0,.3);}
+        .sidebar.open{right:0;}
+        .sidebar-header{
+            display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;
+            padding-bottom:1rem;border-bottom:1px solid var(--border-light);
+        }
+        body.dark-mode .sidebar-header{border-bottom-color:#444;}
+        .sidebar-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--primary-gold);}
+        .cart-item,.wishlist-item{
+            display:flex;align-items:center;padding:1rem 0;border-bottom:1px solid var(--border-light);
+        }
+        body.dark-mode .cart-item,body.dark-mode .wishlist-item{border-bottom-color:#444;}
+        .item-image{
+            width:60px;height:60px;margin-right:1rem;border-radius:10px;
+            background:var(--secondary-gold);display:flex;align-items:center;justify-content:center;
+            overflow: hidden;
+        }
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .item-details{flex:1;}
+        .item-name{font-weight:500;margin-bottom:.5rem;}
+        .item-price{color:var(--primary-gold);font-weight:600;}
+        .quantity-controls{display:flex;align-items:center;gap:10px;margin-top:.5rem;}
+        .qty-btn{
+            width:25px;height:25px;border:none;border-radius:50%;cursor:pointer;
+            background:var(--primary-gold);color:#fff;display:flex;align-items:center;justify-content:center;
+        }
+        .cart-total{margin-top:2rem;padding-top:1rem;border-top:2px solid var(--primary-gold);text-align:center;}
+        .total-amount{font-size:1.5rem;font-weight:600;color:var(--primary-gold);margin-bottom:1rem;}
+        .checkout-btn{
+            width:100%;padding:15px;border:none;border-radius:25px;
+            background:var(--primary-gold);color:#fff;font-size:1.1rem;font-weight:500;cursor:pointer;transition:.3s;
+        }
+        .checkout-btn:hover{background:#B8941F;}
+        .empty-state{text-align:center;padding:3rem 0;color:var(--text-light);}
+
+        /* --------------  ANIMATIONS -------------- */
+        @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+        /* --------------  RESPONSIVE -------------- */
+        @media(max-width:768px){
+            .hero h1{font-size:2.5rem;}
+            .search-container{display:none;}
+            .sidebar{width:100%;right:-100%;}
+            .product-buttons,.newsletter-form{flex-direction:column;}
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ---------- HEADER ---------- -->
+    <header>
+        <div class="logo">EVIE</div>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-box" id="searchInput" placeholder="Search luxury skincare..." />
+        </div>
+
+        <div class="header-actions">
+            <button class="icon-btn" id="darkModeToggle" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+
+            <button class="icon-btn" id="wishlistBtn" title="Wishlist">
+                <i class="fas fa-heart"></i><span class="badge" id="wishlistCount">0</span>
+            </button>
+
+            <button class="icon-btn" id="cartBtn" title="Shopping Cart">
+                <i class="fas fa-shopping-bag"></i><span class="badge" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ---------- HERO ---------- -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Luxury Redefined</h1>
+            <p>Experience the pinnacle of skincare with our meticulously crafted collection. Each product is a testament to elegance and efficacy.</p>
+            <button class="cta-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Explore Collection</button>
+        </div>
+    </section>
+
+    <!-- ---------- PRODUCTS ---------- -->
+    <section class="products" id="products">
+        <h2>Signature Collection</h2>
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product-card" data-product="purity-cream">
+                <button class="wishlist-btn" onclick="toggleWishlist(this,'purity-cream')"><i class="fas fa-heart"></i></button>
+                <div class="product-image">
+                    <img src="https://img.freepik.com/free-photo/woman-home-applying-cream-mask_1303-24618.jpg" alt="Purity Cream Cleanser product photo"/>
+                </div>
+                <div class="product-info">
+                    <h3>Purity Cream Cleanser</h3>
+                    <p>A luxurious cleansing experience that purifies while maintaining your skin's natural moisture barrier.</p>
+                    <div class="product-price">₹2,800</div>
+                    <div class="product-buttons">
+                        <button class="btn-primary" onclick="addToCart('purity-cream','Purity Cream Cleanser',2800)">Add to Cart</button>
+                        <button class="btn-secondary">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card" data-product="lustrous-glow">
+                <button class="wishlist-btn" onclick="toggleWishlist(this,'lustrous-glow')"><i class="fas fa-heart"></i></button>
+                <div class="product-image">
+                    <img src="https://img.freepik.com/free-photo/cosmetics-composition-with-serum-bottles_23-2148549119.jpg" alt="Lustrous Glow Serum product photo"/>
+                </div>
+                <div class="product-info">
+                    <h3>Lustrous Glow Serum</h3>
+                    <p>Transform your complexion with this radiance-boosting serum infused with precious botanical extracts.</p>
+                    <div class="product-price">₹4,200</div>
+                    <div class="product-buttons">
+                        <button class="btn-primary" onclick="addToCart('lustrous-glow','Lustrous Glow Serum',4200)">Add to Cart</button>
+                        <button class="btn-secondary">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card" data-product="cloud-veil">
+                <button class="wishlist-btn" onclick="toggleWishlist(this,'cloud-veil')"><i class="fas fa-heart"></i></button>
+                <div class="product-image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNzNb2u5XxppOqS5tr0K1S7-vpGB9NIz46lkOE9mwt0CsqGk94l0exOxdng4NFL1zMPRE&usqp=CAU" alt="Cloud Veil Moisturizer product photo"/>
+                </div>
+                <div class="product-info">
+                    <h3>Cloud Veil Moisturizer</h3>
+                    <p>Envelop your skin in weightless hydration with this cloud-like moisturizer that melts seamlessly into your skin.</p>
+                    <div class="product-price">₹3,500</div>
+                    <div class="product-buttons">
+                        <button class="btn-primary" onclick="addToCart('cloud-veil','Cloud Veil Moisturizer',3500)">Add to Cart</button>
+                        <button class="btn-secondary">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card" data-product="radiant-elixir">
+                <button class="wishlist-btn" onclick="toggleWishlist(this,'radiant-elixir')"><i class="fas fa-heart"></i></button>
+                <div class="product-image">
+                    <img src="https://img.freepik.com/free-photo/young-beautiful-blonde-girl-cares-face-skin-with-moisturizer-front-mirror_496169-939.jpg?semt=ais_hybrid&w=740&q=80" alt="Radiant Elixir Oil product photo"/>
+                </div>
+                <div class="product-info">
+                    <h3>Radiant Elixir Oil</h3>
+                    <p>The ultimate finishing touch — a luxurious face oil that seals in moisture and imparts an ethereal glow.</p>
+                    <div class="product-price">₹5,000</div>
+                    <div class="product-buttons">
+                        <button class="btn-primary" onclick="addToCart('radiant-elixir','Radiant Elixir Oil',5000)">Add to Cart</button>
+                        <button class="btn-secondary">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---------- ROUTINE ---------- -->
+    <section class="routine" id="routine">
+        <h2>Your Ritual, Reimagined</h2>
+        <div class="steps">
+            <div class="step"><h4>Step 1</h4><p>Cleanse with <strong>Purity Cream</strong></p></div>
+            <div class="step"><h4>Step 2</h4><p>Treat with <strong>Lustrous Glow</strong></p></div>
+            <div class="step"><h4>Step 3</h4><p>Nourish with <strong>Cloud Veil</strong></p></div>
+            <div class="step"><h4>Step 4</h4><p>Seal with <strong>Radiant Elixir</strong></p></div>
+        </div>
+    </section>
+
+    <!-- ---------- NEWSLETTER ---------- -->
+    <section class="newsletter" id="contact">
+        <h2>Be First In Line</h2>
+        <p>Receive invitations, early access, and skin wisdom curated just for you.</p>
+        <div class="newsletter-form">
+            <input type="email" id="emailInput" placeholder="Enter your email…" />
+            <button onclick="subscribe()">Subscribe</button>
+        </div>
+    </section>
+
+    <!-- ---------- FOOTER ---------- -->
+    <footer>
+        <div class="footer-links">
+            <span class="footer-link" onclick="openModal('Privacy Policy','Your personal data is protected with bank‑level encryption and never shared without explicit consent. We value your trust and privacy above all else.')">Privacy Policy</span> |
+            <span class="footer-link" onclick="openModal('Shipping & Returns','We offer complimentary luxury packaging and free shipping across India for orders above ₹2,000. Returns accepted within 14 days of delivery.')">Shipping & Returns</span> |
+            <span class="footer-link" onclick="openModal('Support','Our dedicated skin consultants are available 24/7 at support@evieskin.in or our luxury helpline.')">Support</span>
+        </div>
+        <p>&copy; 2025 EVIE Skin. Designed with elegance.</p>
+    </footer>
+
+    <!-- ---------- CART SIDEBAR ---------- -->
+    <div class="sidebar" id="cartSidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">Shopping Cart</h3>
+            <button class="icon-btn" onclick="toggleSidebar('cartSidebar')"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="cartItems"></div>
+        <div id="cartTotal" class="cart-total" style="display:none;">
+            <div class="total-amount">Total: ₹<span id="totalAmount">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- ---------- WISHLIST SIDEBAR ---------- -->
+    <div class="sidebar" id="wishlistSidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">Wishlist</h3>
+            <button class="icon-btn" onclick="toggleSidebar('wishlistSidebar')"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="wishlistItems"></div>
+    </div>
+
+    <!-- ---------- MODAL ---------- -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <!-- ---------- SCRIPT ---------- -->
+    <script>
+        /* ------------ STATE ------------ */
+        const cart = {};              // { productId: { name, price, quantity } }
+        const wishlist = new Set();   // Set of productIds
+
+        /* ------------ HELPERS ------------ */
+        const qs = id => document.getElementById(id);
+
+        /* ------------ DARK MODE ------------ */
+        qs('darkModeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        /* ------------ WISHLIST ------------ */
+        function toggleWishlist(button, productId) {
+            if (wishlist.has(productId)) {
+                wishlist.delete(productId);
+                button.classList.remove('active');
+            } else {
+                wishlist.add(productId);
+                button.classList.add('active');
+            }
+            updateWishlistSidebar();
+        }
+
+        function updateWishlistSidebar() {
+            const container = qs('wishlistItems');
+            const badge = qs('wishlistCount');
+            container.innerHTML = '';
+
+            let count = 0;
+            wishlist.forEach(pid => {
+                const card = document.querySelector(`[data-product="${pid}"]`);
+                if (!card) return;
+                const name  = card.querySelector('h3').textContent;
+                const price = card.querySelector('.product-price').textContent;
+
+                container.innerHTML += `
+                    <div class="wishlist-item">
+                        <div class="item-image"><i class="fas fa-heart"></i></div>
+                        <div class="item-details">
+                            <div class="item-name">${name}</div>
+                            <div class="item-price">${price}</div>
+                        </div>
+                    </div>`;
+                count++;
+            });
+
+            badge.textContent = count;
+            if (count === 0) container.innerHTML = '<div class="empty-state">Your wishlist is empty.</div>';
+        }
+
+        /* ------------ CART ------------ */
+        function addToCart(productId, productName, productPrice) {
+            if (cart[productId]) {
+                cart[productId].quantity++;
+            } else {
+                cart[productId] = { name: productName, price: productPrice, quantity: 1 };
+            }
+            updateCartSidebar();
+        }
+
+        function changeQuantity(productId, delta) {
+            if (!cart[productId]) return;
+            cart[productId].quantity += delta;
+            if (cart[productId].quantity <= 0) delete cart[productId];
+            updateCartSidebar();
+        }
+
+        function updateCartSidebar() {
+            const container = qs('cartItems');
+            const badge     = qs('cartCount');
+            const totalWrap = qs('cartTotal');
+            const totalAmt  = qs('totalAmount');
+
+            container.innerHTML = '';
+            let itemCount = 0, total = 0;
+
+            Object.entries(cart).forEach(([pid, item]) => {
+                itemCount += item.quantity;
+                total += item.price * item.quantity;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div class="item-image"><i class="fas fa-box"></i></div>
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">₹${item.price}</div>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQuantity('${pid}',-1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="qty-btn" onclick="changeQuantity('${pid}',1)">+</button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+
+            badge.textContent = itemCount;
+            totalAmt.textContent = total;
+            totalWrap.style.display = itemCount ? 'block' : 'none';
+            if (!itemCount) container.innerHTML = '<div class="empty-state">Your cart is empty.</div>';
+        }
+
+        /* ------------ SIDEBAR TOGGLE ------------ */
+        qs('cartBtn').addEventListener('click', () => toggleSidebar('cartSidebar'));
+        qs('wishlistBtn').addEventListener('click', () => toggleSidebar('wishlistSidebar'));
+
+        function toggleSidebar(id) {
+            document.querySelectorAll('.sidebar').forEach(s => { if (s.id !== id) s.classList.remove('open'); });
+            qs(id).classList.toggle('open');
+        }
+
+        /* ------------ MODAL ------------ */
+        function openModal(title, text) {
+            qs('modalTitle').textContent = title;
+            qs('modalText').textContent  = text;
+            qs('modal').classList.add('show');
+        }
+        function closeModal() { qs('modal').classList.remove('show'); }
+
+        /* ------------ NEWSLETTER ------------ */
+        function subscribe() {
+            const email = qs('emailInput').value.trim();
+            if (!email) {
+                openModal('Error', 'Please enter a valid email address.');
+                return;
+            }
+            openModal('Subscription Successful', `Thank you for subscribing, ${email}!`);
+            qs('emailInput').value = '';
+        }
+
+        /* ------------ CHECKOUT PLACEHOLDER ------------ */
+        function checkout() {
+            openModal('Thank You', 'Thank you for your purchase! Your order is being processed.');
+            for (const id in cart) delete cart[id];
+            updateCartSidebar();
+            toggleSidebar('cartSidebar');
+        }
+
+        /* ------------ OPTIONAL LIVE SEARCH ------------ */
+        qs('searchInput').addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase();
+            document.querySelectorAll('.product-card').forEach(card => {
+                const name = card.querySelector('h3').textContent.toLowerCase();
+                card.style.display = name.includes(q) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
+
