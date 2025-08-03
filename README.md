@@ -1,6 +1,6 @@
 EVIE – Luxury Skincare Brand (Mock Website)
 
-EVIE is a fully responsive, front-end + back-end personal project simulating a luxury skincare e-commerce brand. Inspired by modern minimal aesthetics like Rhode and Glow Recipe, this project was built to sharpen my skills in web development, UI/UX, and deployment.
+EVIE is a responsive, front-end + back-end personal project simulating a luxury skincare e-commerce brand. Inspired by modern minimal aesthetics like Rhode and Glow Recipe, this project was built to sharpen my skills in web development, UI/UX, and deployment.
 
 Live Demo:  
 Visit the Live Site – https://evie-node.onrender.com
